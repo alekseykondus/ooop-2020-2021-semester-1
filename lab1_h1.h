@@ -24,25 +24,26 @@ a. + *за операції з матрицями:
 а.4 транспонування… +
 */
 
-
+template< typename T>
 class MatrixElement
 {
 public:
 	int i, j;
-	double data;
-	MatrixElement* next = nullptr;
-	MatrixElement* prev = nullptr;
+	T data;
+	MatrixElement<T>* next = nullptr;
+	MatrixElement<T>* prev = nullptr;
 };
 
+template< typename T>
 class MatrixElement_List
 {
 public:
-	MatrixElement* head = nullptr;
-	MatrixElement* end = nullptr;
+	MatrixElement<T>* head = nullptr;
+	MatrixElement<T>* end = nullptr;
 
-	void add(int i, int j, double data)
+	void add(int i, int j, T data)
 	{
-		MatrixElement* e = new MatrixElement;
+		MatrixElement<T>* e = new MatrixElement<T>;
 		e->i = i;
 		e->j = j;
 		e->data = data;
@@ -58,9 +59,9 @@ public:
 		}
 	}
 
-	MatrixElement* search_by_index(int i, int j) // поиск элемента по индексу, реализация в виде метода
+	MatrixElement<T>* search_by_index(int i, int j) // поиск элемента по индексу, реализация в виде метода
 	{
-		MatrixElement* e = new MatrixElement;
+		MatrixElement<T>* e = new MatrixElement<T>;
 		e = end;
 		if (i < order && j < order)
 			for (int k = 0; k < order; k++)
@@ -68,7 +69,7 @@ public:
 				{
 					if (!e || e->i >= i && e->j > j)
 					{
-						e = new MatrixElement;
+						e = new MatrixElement<T>;
 						e->i = i;
 						e->j = j;
 						e->data = 0;
@@ -81,14 +82,15 @@ public:
 					e = e->prev;
 				}
 		std::cout << "Индекс больше размера матрицы!";
-		e = new MatrixElement;
+		e = new MatrixElement<T>;
 		return e;
 	}
 };
 
-MatrixElement* search_by_index(MatrixElement_List horizontal[order], int i, int j) // поиск элемента по индексу, реализация в виде фукнции
+template< typename T>
+MatrixElement<T>* search_by_index(MatrixElement_List<T> horizontal[order], int i, int j) // поиск элемента по индексу, реализация в виде фукнции
 {
-	MatrixElement* e = new MatrixElement;
+	MatrixElement<T>* e = new MatrixElement<T>;
 	if (i < order && j < order)
 	{
 		e = horizontal[i].end;
@@ -97,7 +99,7 @@ MatrixElement* search_by_index(MatrixElement_List horizontal[order], int i, int 
 			{
 				if (!e || e->i >= i && e->j > j)
 				{
-					e = new MatrixElement;
+					e = new MatrixElement<T>;
 					e->i = i;
 					e->j = j;
 					e->data = 0;
@@ -110,13 +112,14 @@ MatrixElement* search_by_index(MatrixElement_List horizontal[order], int i, int 
 			}
 	}
 	out_RED("Индекс больше размера матрицы!");
-	e = new MatrixElement;
+	e = new MatrixElement<T>;
 	return e;
 }
 
-MatrixElement* search_first_by_value(MatrixElement_List horizontal[order], double data) //поиск первого элемента по значению
+template< typename T>
+MatrixElement<T>* search_first_by_value(MatrixElement_List<T> horizontal[order], double data) //поиск первого элемента по значению
 {
-	MatrixElement* e = new MatrixElement;
+	MatrixElement<T>* e = new MatrixElement<T>;
 	if (data) // если это значение не 0
 	{
 		for (int k = 0; k < order; k++)
@@ -155,13 +158,14 @@ MatrixElement* search_first_by_value(MatrixElement_List horizontal[order], doubl
 	}
 	// если элемента с таким значением нет в матрице: 
 	out_RED("Значение не найдено!");
-	e = new MatrixElement;
+	e = new MatrixElement<T>;
 	return e;
 }
 
-void search_all_by_value(MatrixElement_List horizontal[order], std::vector< MatrixElement*>& myVector, double data) //поиск всех элементов по значению
+template< typename T>
+void search_all_by_value(MatrixElement_List<T> horizontal[order], std::vector< MatrixElement<T>*>& myVector, T data) //поиск всех элементов по значению
 {
-	MatrixElement* e = new MatrixElement;
+	MatrixElement<T>* e = new MatrixElement<T>;
 	if (data)
 	{
 		for (int k = 0; k < order; k++)
@@ -187,7 +191,7 @@ void search_all_by_value(MatrixElement_List horizontal[order], std::vector< Matr
 					int j_copy = e->j + 1;
 					while (j_copy != e->prev->j)
 					{
-						MatrixElement* element = new MatrixElement;
+						MatrixElement<T>* element = new MatrixElement<T>;
 						element->i = k;
 						element->j = j_copy;
 						element->data = 0;
@@ -209,11 +213,12 @@ void search_all_by_value(MatrixElement_List horizontal[order], std::vector< Matr
 	}
 }
 
-void print_matrix(MatrixElement_List horizontal[order])
+template< typename T>
+void print_matrix(MatrixElement_List<T> horizontal[order])
 {//вывод в виде матрицы
 	for (int i = 0; i < order; i++)
 	{
-		MatrixElement* e = horizontal[i].end;
+		MatrixElement<T>* e = horizontal[i].end;
 
 		int j_copy = -1;
 		if (e == nullptr)
@@ -239,7 +244,8 @@ void print_matrix(MatrixElement_List horizontal[order])
 	}
 }
 
-void matrix_sum(MatrixElement_List horizontal_A[order], MatrixElement_List horizontal_B[order], MatrixElement_List(&h_c)[order])
+template< typename T>
+void matrix_sum(MatrixElement_List<T> horizontal_A[order], MatrixElement_List<T> horizontal_B[order], MatrixElement_List<T>(&h_c)[order])
 {//сумма матриц
 	bool b = 0;
 	for (int i = 0; i < order; i++) //проверяем, не пуста ли матрица В
@@ -253,8 +259,8 @@ void matrix_sum(MatrixElement_List horizontal_A[order], MatrixElement_List horiz
 	{
 		for (int i = 0; i < order; i++)
 		{
-			MatrixElement* h_a = horizontal_A[i].end;
-			MatrixElement* h_b = horizontal_B[i].end;
+			MatrixElement<T>* h_a = horizontal_A[i].end;
+			MatrixElement<T>* h_b = horizontal_B[i].end;
 			if (h_a == nullptr && h_b != nullptr)
 				while (h_b != nullptr)
 				{
@@ -299,11 +305,12 @@ void matrix_sum(MatrixElement_List horizontal_A[order], MatrixElement_List horiz
 	//make_vertical_bundle(h_c, v_c);
 }
 
-void make_vertical_bundle(MatrixElement_List h_c[order], MatrixElement_List(&v_c)[order])
+template< typename T>
+void make_vertical_bundle(MatrixElement_List<T> h_c[order], MatrixElement_List<T>(&v_c)[order])
 {//получаем вертикальную связку, имея горизонтальную
 	for (int i = 0; i < order; i++)
 	{
-		MatrixElement* e = h_c[i].end;
+		MatrixElement<T>* e = h_c[i].end;
 		while (e != nullptr)
 		{
 			v_c[e->j].add(e->i, e->j, e->data);
@@ -312,9 +319,10 @@ void make_vertical_bundle(MatrixElement_List h_c[order], MatrixElement_List(&v_c
 	}
 }
 
-void matrix_multiplication(MatrixElement_List horizontal_A[order], MatrixElement_List horizontal_B[order], MatrixElement_List(&h_c)[order])
+template< typename T>
+void matrix_multiplication(MatrixElement_List<T> horizontal_A[order], MatrixElement_List<T> horizontal_B[order], MatrixElement_List<T>(&h_c)[order])
 {//умножение матриц
-	MatrixElement_List vertical_B[order];
+	MatrixElement_List<T> vertical_B[order];
 	make_vertical_bundle(horizontal_B, vertical_B);
 
 	for (int i = 0; i < order; i++)
@@ -322,12 +330,12 @@ void matrix_multiplication(MatrixElement_List horizontal_A[order], MatrixElement
 		for (int j = 0; j < order; j++)
 		{
 			int count = 0;
-			MatrixElement* h_a = horizontal_A[i].end;
+			MatrixElement<T>* h_a = horizontal_A[i].end;
 
 
 			while (h_a != nullptr)
 			{
-				MatrixElement* v_b = vertical_B[j].end;
+				MatrixElement<T>* v_b = vertical_B[j].end;
 				while (v_b != nullptr)
 				{
 					if (h_a->j == v_b->i)
@@ -343,15 +351,16 @@ void matrix_multiplication(MatrixElement_List horizontal_A[order], MatrixElement
 	//make_vertical_bundle(h_c, v_c);
 }
 
-void matrix_transpose(MatrixElement_List horizontal_A[order], MatrixElement_List(&h_c)[order])
+template< typename T>
+void matrix_transpose(MatrixElement_List<T> horizontal_A[order], MatrixElement_List<T>(&h_c)[order])
 {
-	MatrixElement_List vertical_A[order];
+	MatrixElement_List<T> vertical_A[order];
 	make_vertical_bundle(horizontal_A, vertical_A);
 
 
 	for (int i = 0; i < order; i++)
 	{
-		MatrixElement* e = vertical_A[i].end;
+		MatrixElement<T>* e = vertical_A[i].end;
 		while (e)
 		{
 			h_c[i].add(e->j, e->i, e->data);
@@ -360,19 +369,20 @@ void matrix_transpose(MatrixElement_List horizontal_A[order], MatrixElement_List
 	}
 }
 
-MatrixElement_List matrix_multiplication_by_vector(MatrixElement_List horizontal_A[order], MatrixElement_List vector)
+template< typename T>
+MatrixElement_List<T> matrix_multiplication_by_vector(MatrixElement_List<T> horizontal_A[order], MatrixElement_List<T> vector)
 {
-	MatrixElement_List vector_result;
+	MatrixElement_List<T> vector_result;
 
 	for (int j = 0; j < order; j++)
 	{
 		int count = 0;
-		MatrixElement* h_a = horizontal_A[j].end;
+		MatrixElement<T>* h_a = horizontal_A[j].end;
 
 
 		while (h_a != nullptr)
 		{
-			MatrixElement* vec = vector.end;
+			MatrixElement<T>* vec = vector.end;
 			while (vec)
 			{
 				if (h_a->j == vec->j)
@@ -414,7 +424,9 @@ void CREATING_AND_FILLING_THE_FILE_WITH_MATRIX_ELEMENTS() // СОЗДАНИЕ И
 	fclose(file);
 }
 
-void matrix_creation(MatrixElement_List(&horizontal)[order], const char m[10])
+
+template< typename T>
+void matrix_creation(MatrixElement_List<T>(&horizontal)[order], const char m[10])
 {//заполнение матрицы из файла
 	char name[20] = "matrix_";
 	strcat_s(name, m);
@@ -441,7 +453,8 @@ void matrix_creation(MatrixElement_List(&horizontal)[order], const char m[10])
 	fclose(file);
 }
 
-void search_by_index_method_main(MatrixElement_List(&horizontal_A)[order]) //поиск элемента по индексу, вызывает метод класса MatrixElement_List
+template< typename T>
+void search_by_index_method_main(MatrixElement_List<T>(&horizontal_A)[order]) //поиск элемента по индексу, вызывает метод класса MatrixElement_List
 {
 	int i, j;
 	out_BLUE_RED("Поиск элемента по индексу, реализация в виде метода");
@@ -449,11 +462,12 @@ void search_by_index_method_main(MatrixElement_List(&horizontal_A)[order]) //п�
 	std::cin >> i;
 	std::cout << "j = ";
 	std::cin >> j;
-	MatrixElement* element = horizontal_A[i].search_by_index(i, j);
+	MatrixElement<T>* element = horizontal_A[i].search_by_index(i, j);
 	std::cout << std::endl << "element->data = " << element->data;
 }
 
-void search_by_index_function_main(MatrixElement_List(&horizontal_A)[order]) //поиск элемента по индексу, вызывает функцию search_by_index
+template< typename T>
+void search_by_index_function_main(MatrixElement_List<T>(&horizontal_A)[order]) //поиск элемента по индексу, вызывает функцию search_by_index
 {
 	int i, j;
 	out_BLUE_RED("Поиск элемента по индексу, реализация в виде функции");
@@ -461,61 +475,67 @@ void search_by_index_function_main(MatrixElement_List(&horizontal_A)[order]) //�
 	std::cin >> i;
 	std::cout << "j = ";
 	std::cin >> j;
-	MatrixElement* element = search_by_index(horizontal_A, i, j);
+	MatrixElement<T>* element = search_by_index(horizontal_A, i, j);
 	std::cout << std::endl << "data = " << element->data << std::endl;
 }
 
-void search_first_by_value_main(MatrixElement_List(&horizontal_A)[order]) 	//поиск первого элемента по значению
+template< typename T>
+void search_first_by_value_main(MatrixElement_List<T>(&horizontal_A)[order]) 	//поиск первого элемента по значению
 {
 	out_BLUE_RED("Поиск первого элемента по значению");
 	std::cout << "data = ";
 	double data;
 	std::cin >> data;
-	MatrixElement* element = search_first_by_value(horizontal_A, data);
+	MatrixElement<T>* element = search_first_by_value(horizontal_A, data);
 	std::cout << "i = " << element->i << std::endl << "j = " << element->j << std::endl;
 }
 
-void search_all_by_value_main(MatrixElement_List(&horizontal_A)[order]) 	//поиск всех элементов по значению
+template< typename T>
+void search_all_by_value_main(MatrixElement_List<T>(&horizontal_A)[order]) 	//поиск всех элементов по значению
 {
 	out_BLUE_RED("Поиск всех элементов по значению");
 	std::cout << "data = ";
 	double data;
 	std::cin >> data;
-	std::vector<MatrixElement*> myVector;
+	std::vector<MatrixElement<T>*> myVector;
 	search_all_by_value(horizontal_A, myVector, data);
-	for (MatrixElement* element : myVector)
+	for (MatrixElement<T>* element : myVector)
 		std::cout << "element->i = " << element->i << '	' << "element->j = " << element->j << '	' << "element->data = " << element->data << std::endl;
 	if (myVector.empty())
 		out_RED("Таких элементов нет!");
 }
 
-void matrix_sum_main(MatrixElement_List(&horizontal_A)[order], MatrixElement_List(&horizontal_B)[order]) 	//сумма матриц
+template< typename T>
+void matrix_sum_main(MatrixElement_List<T>(&horizontal_A)[order], MatrixElement_List<T>(&horizontal_B)[order]) 	//сумма матриц
 {
-	MatrixElement_List horizontal_SUM_A_B[order];
+	MatrixElement_List<T> horizontal_SUM_A_B[order];
 	matrix_sum(horizontal_A, horizontal_B, horizontal_SUM_A_B);
 	std::cout << "horizontal_SUM_A_B" << std::endl;
 	print_matrix(horizontal_SUM_A_B);
 }
 
-void matrix_multiplication_main(MatrixElement_List(&horizontal_A)[order], MatrixElement_List(&horizontal_B)[order]) 	//умножение матриц
+template< typename T>
+void matrix_multiplication_main(MatrixElement_List<T>(&horizontal_A)[order], MatrixElement_List<T>(&horizontal_B)[order]) 	//умножение матриц
 {
-	MatrixElement_List horizontal_SUM_A_B[order];
+	MatrixElement_List<T> horizontal_SUM_A_B[order];
 	matrix_multiplication(horizontal_A, horizontal_B, horizontal_SUM_A_B);
 	std::cout << "horizontal_SUM_A_B" << std::endl;
 	print_matrix(horizontal_SUM_A_B);
 }
 
-void matrix_transpose_main(MatrixElement_List(&horizontal_A)[order]) //транспонирование матрицы А
+template< typename T>
+void matrix_transpose_main(MatrixElement_List<T>(&horizontal_A)[order]) //транспонирование матрицы А
 {
-	MatrixElement_List horizontal_transpose_A[order];
+	MatrixElement_List<T> horizontal_transpose_A[order];
 	matrix_transpose(horizontal_A, horizontal_transpose_A);
 	std::cout << "horizontal_transpose_A" << std::endl;
 	print_matrix(horizontal_transpose_A);
 }
 
-void matrix_multiplication_by_vector_main(MatrixElement_List(&horizontal_A)[order]) //умножение матрицы А на вектор
+template< typename T>
+void matrix_multiplication_by_vector_main(MatrixElement_List<T>(&horizontal_A)[order]) //умножение матрицы А на вектор
 {
-	MatrixElement_List vector;
+	MatrixElement_List<T> vector;
 	for (int j = 0; j < order; j++)
 	{
 		int a = rand() % 3;
@@ -524,7 +544,7 @@ void matrix_multiplication_by_vector_main(MatrixElement_List(&horizontal_A)[orde
 	}
 
 	std::cout << "vector" << std::endl;
-	MatrixElement* e = vector.end;
+	MatrixElement<T>* e = vector.end;
 	for (int j = 0; j < order && e; j++)
 	{
 		std::cout << e->data << ' ';
@@ -538,7 +558,7 @@ void matrix_multiplication_by_vector_main(MatrixElement_List(&horizontal_A)[orde
 	}
 	std::cout << std::endl << std::endl;
 
-	MatrixElement_List vector_result = matrix_multiplication_by_vector(horizontal_A, vector);
+	MatrixElement_List<T> vector_result = matrix_multiplication_by_vector(horizontal_A, vector);
 
 	std::cout << "vector_result" << std::endl;
 	e = vector_result.end;
@@ -550,9 +570,10 @@ void matrix_multiplication_by_vector_main(MatrixElement_List(&horizontal_A)[orde
 	std::cout << std::endl << std::endl;
 }
 
-MatrixElement* search_first_element(MatrixElement_List(&horizontal)[order], double data, int k) //поиск первого элемента по заданному условию
+template< typename T>
+MatrixElement<T>* search_first_element(MatrixElement_List<T>(&horizontal)[order], T data, int k) //поиск первого элемента по заданному условию
 {
-	MatrixElement* e = new MatrixElement;
+	MatrixElement<T>* e = new MatrixElement<T>;
 
 	for (int i = 0; i < order; i++)
 	{
@@ -568,10 +589,12 @@ MatrixElement* search_first_element(MatrixElement_List(&horizontal)[order], doub
 
 	}
 	out_RED("Значение не найдено!");
-	e = new MatrixElement;
+	e = new MatrixElement<T>;
 	return e;
 }
-void search_first_element_by_condition(MatrixElement_List(&horizontal)[order]) //поиск первого элемента по заданному условию
+
+template< typename T>
+void search_first_element_by_condition(MatrixElement_List<T>(&horizontal)[order]) //поиск первого элемента по заданному условию
 {
 	out_BLUE_RED("Поиск первого элемента по заданному условию");
 	std::cout << "i = ";
@@ -585,11 +608,10 @@ void search_first_element_by_condition(MatrixElement_List(&horizontal)[order]) /
 	double data;
 	std::cin >> data;
 
-	MatrixElement* e = new MatrixElement;
+	MatrixElement<T>* e = new MatrixElement<T>;
 	if (data == 0 && k == 2)
 		out_RED("Делить на 0 нельзя!");
 	else
 		e = search_first_element(horizontal, data, k);
 	std::cout << "e->i = " << e->i << '	' << "e->j = " << e->j << '	' << "e->data = " << e->data << std::endl;
 }
-
