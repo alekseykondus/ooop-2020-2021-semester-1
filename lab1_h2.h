@@ -558,12 +558,12 @@ void print_all_books()
 	fclose(library);
 }
 
-MatrixElement_List* creation_sparse_matrix(List_Personage* person, int n)
+MatrixElement_List<size_t>* creation_sparse_matrix(List_Personage* person, int n)
 {
 	using std::cout;
 	using std::endl;
 
-	MatrixElement_List* horizontal = new MatrixElement_List[n];
+	MatrixElement_List<size_t>* horizontal = new MatrixElement_List<size_t>[n];
 
 	for (size_t i = 0; i < n; i++)
 	{
@@ -681,11 +681,12 @@ void out_personage(List_Personage* person, int n)
 	}
 }
 
-void print_elements_of_the_character_matrix(MatrixElement_List* horizontal, int n)
+template< typename T>
+void print_elements_of_the_character_matrix(MatrixElement_List<T>* horizontal, int n)
 {//вывод элементов
 	for (int i = 0; i < n; i++)
 	{
-		MatrixElement* element = horizontal[i].end;
+		MatrixElement<T>* element = horizontal[i].end;
 		while (element)
 		{
 			std::cout << "i = " << element->i << std::endl
