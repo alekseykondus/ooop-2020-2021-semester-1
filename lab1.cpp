@@ -8,7 +8,7 @@ void test1()
 {
 	CREATING_AND_FILLING_THE_FILE_WITH_MATRIX_ELEMENTS(); 	// СОЗДАНИЕ И ЗАПОЛНЕНИЕ ФАЙЛА ЭЛЕМЕНТАМИ МАТРИЦЫ
 
-	MatrixElement_List horizontal_A[order];
+	MatrixElement_List<double> horizontal_A[order];
 	matrix_creation(horizontal_A, "A"); //заполняем матрицу А с файла и печатаем
 	std::cout << std::endl << std::endl;
 
@@ -24,7 +24,7 @@ void test1()
 	search_first_element_by_condition(horizontal_A); //поиск первого элемента по заданному условию
 
 
-	MatrixElement_List horizontal_B[order];
+	MatrixElement_List<double> horizontal_B[order];
 	matrix_creation(horizontal_B, "B");		//заполняем матрицу В с файла и печатаем
 	std::cout << std::endl << std::endl;
 
@@ -35,7 +35,6 @@ void test1()
 	matrix_transpose_main(horizontal_A);	//транспонирование матрицы А
 
 	matrix_multiplication_by_vector_main(horizontal_A);	//умножение матрицы А на вектор
-
 }
 
 void test2()
@@ -70,7 +69,7 @@ void test2()
 	else
 		series = creation_series(person, n);
 
-	MatrixElement_List* horizontal = creation_sparse_matrix(person, n); // Создание матрицы, которое описано в строке 616
+	MatrixElement_List<size_t>* horizontal = creation_sparse_matrix(person, n); // Создание матрицы, которое описано в строке 616
 	//print_elements_of_the_character_matrix(horizontal, n);
 
 	for (List_Series element : series)
@@ -85,7 +84,6 @@ void test2()
 			e = e->prev;
 		}
 	}
-
 }
 
 
