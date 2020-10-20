@@ -16,13 +16,13 @@ public:
     ~MainWindow();
     int rows;
 private slots:
-    void moving_to_archive(int rows);//size_t rows);
+    //void moving_to_archive(int rows);//Не работает
+    void moving_to_archive(); //Работает
     void on_new_task_clicked();
     void on_update_clicked();
 
 private:
     Ui::MainWindow *ui;
-    //void moving_to_archive(size_t rows);
     void add_notation_to_table_notes(const Notation& notation);
     void add_notation_to_table_archive(const Notation& notation);
     void load_from_file(int i);
