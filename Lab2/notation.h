@@ -9,7 +9,7 @@ private:
     QString _time;
     QString _name;
     QString _text;
-    int _priority;
+    QString _type;
     bool _availability = 1;
 
 public:
@@ -18,9 +18,9 @@ public:
                         const QString &time,
                         const QString &name,
                         const QString &text,
-                        int priority,
+                        const QString &type,
                         bool availability):
-            _data(data), _time(time), _name(name), _text(text), _priority(priority), _availability(availability) {}
+            _data(data), _time(time), _name(name), _text(text), _type(type), _availability(availability) {}
        QString data() const;
        void setData(const QString &data);
        QString time() const;
@@ -29,8 +29,8 @@ public:
        void setName(const QString &name);
        QString text() const;
        void setText(const QString &text);
-       int priority() const;
-       void setPriority(int priority);
+       QString type() const;
+       void setType(const QString &type);
        bool availability() const;
        void setAvailability(bool availability);
 };

@@ -30,14 +30,14 @@ void Notation::setName(const QString &name)
     _name = name;
 }
 
-int Notation::priority() const
+QString Notation::type() const
 {
-    return _priority;
+    return _type;
 }
 
-void Notation::setPriority(int priority)
+void Notation::setType(const QString &type)
 {
-    _priority = priority;
+    _type = type;
 }
 
 QString Notation::text() const

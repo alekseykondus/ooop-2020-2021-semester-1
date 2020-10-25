@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>894</width>
+    <width>944</width>
     <height>418</height>
    </rect>
   </property>
@@ -17,8 +17,8 @@
    <widget class="QPushButton" name="new_task">
     <property name="geometry">
      <rect>
-      <x>770</x>
-      <y>10</y>
+      <x>820</x>
+      <y>40</y>
       <width>93</width>
       <height>28</height>
      </rect>
@@ -32,7 +32,7 @@
      <rect>
       <x>30</x>
       <y>20</y>
-      <width>731</width>
+      <width>781</width>
       <height>341</height>
      </rect>
     </property>
@@ -48,9 +48,12 @@
        <rect>
         <x>0</x>
         <y>0</y>
-        <width>731</width>
-        <height>311</height>
+        <width>781</width>
+        <height>321</height>
        </rect>
+      </property>
+      <property name="sortingEnabled">
+       <bool>true</bool>
       </property>
      </widget>
     </widget>
@@ -63,24 +66,44 @@
        <rect>
         <x>0</x>
         <y>0</y>
-        <width>731</width>
+        <width>781</width>
         <height>311</height>
        </rect>
       </property>
      </widget>
     </widget>
    </widget>
-   <widget class="QPushButton" name="update">
+   <widget class="QListWidget" name="listWidget">
     <property name="geometry">
      <rect>
-      <x>770</x>
-      <y>90</y>
-      <width>93</width>
-      <height>28</height>
+      <x>820</x>
+      <y>80</y>
+      <width>91</width>
+      <height>114</height>
+     </rect>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label">
+    <property name="geometry">
+     <rect>
+      <x>820</x>
+      <y>210</y>
+      <width>55</width>
+      <height>16</height>
      </rect>
     </property>
     <property name="text">
-     <string>Update</string>
+     <string>History</string>
+    </property>
+   </widget>
+   <widget class="QListWidget" name="listWidget_2">
+    <property name="geometry">
+     <rect>
+      <x>820</x>
+      <y>230</y>
+      <width>91</width>
+      <height>131</height>
+     </rect>
     </property>
    </widget>
   </widget>
@@ -89,10 +112,17 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>894</width>
+     <width>944</width>
      <height>26</height>
     </rect>
    </property>
+   <widget class="QMenu" name="menu">
+    <property name="title">
+     <string>Файл</string>
+    </property>
+    <addaction name="separator"/>
+   </widget>
+   <addaction name="menu"/>
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
  </widget>

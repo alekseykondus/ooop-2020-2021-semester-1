@@ -2,6 +2,10 @@
 #define MAINWINDOW_H
 #include "notation.h"
 #include <QMainWindow>
+#include <QShortcut>
+#include <QListWidget>
+
+#include "windows.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -14,15 +18,23 @@ class MainWindow : public QMainWindow
 public:
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
-    int rows;
+    bool nativeEvent(const QByteArray &eventType, void *message, long *result);
+
+public slots:
+    void update();
+
 private slots:
-    //void moving_to_archive(int rows);//Не работает
-    void moving_to_archive(); //Работает
+    void add_number_buttons(size_t rows);
+    void moving_to_archive(size_t rows);
     void on_new_task_clicked();
-    void on_update_clicked();
+    void on_Alt_Ctrl_F_clicked();
+
+    void onListMailItemClicked(QListWidgetItem* item);
+
 
 private:
     Ui::MainWindow *ui;
+    QShortcut  *keyCtrl_D;
     void add_notation_to_table_notes(const Notation& notation);
     void add_notation_to_table_archive(const Notation& notation);
     void load_from_file(int i);

@@ -4,13 +4,25 @@
 
 #include <QFile>
 #include <QTextStream>
+#include <QDateTime>
+#include <QComboBox>
 #include <QDebug>
 
-new_task::new_task(QWidget *parent) :
+#include <QClipboard>
+
+new_task::new_task(QWidget *parent, bool b) :
     QMainWindow(parent),
     ui(new Ui::new_task)
 {
     ui->setupUi(this);
+
+    keyEnter = new QShortcut(this);
+    keyEnter->setKey(Qt::Key_Return);
+    connect(keyEnter, SIGNAL(activated()), this, SLOT(on_add_clicked()));
+
+    QClipboard *clipboard = QApplication::clipboard();
+    if (b == true)
+        ui->inptext->setText(clipboard->text());
 }
 
 new_task::~new_task()
@@ -20,11 +32,14 @@ new_task::~new_task()
 
 void new_task::on_add_clicked()
 {
-    Notation notation{ui->inpdate->text(),
-                     ui->inptime->text(),
+    QString data = QDate::currentDate().toString("dd-MM-yyyy");
+    QString time = QTime::currentTime().toString("hh:mm:ss");
+    Notation notation{data,
+                     time,
                      ui->inpname->text(),
-                     ui->inptext->text(),
-                     ui->inppriority->value(), 1};
+                     ui->inptext->toPlainText(),
+                     ui->inptype->currentText(), 1};
+
     QFile file{"data.txt"};
        if (!file.open(QIODevice::WriteOnly |QIODevice::Append | QIODevice::Text))
        return;
@@ -34,9 +49,11 @@ void new_task::on_add_clicked()
              << notation.time()<<"\n"
              << notation.name()<<"\n"
              << notation.text()<<"\n"
-             << notation.priority()<<"\n"
+             << notation.type()<<"\n"
              << notation.availability()<<"\n\n";
 
-       file.close();
+   file.close();
    this->close();
+
+   sendData();
 }

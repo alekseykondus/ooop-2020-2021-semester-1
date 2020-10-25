@@ -6,101 +6,45 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>800</width>
-    <height>600</height>
+    <width>495</width>
+    <height>339</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>MainWindow</string>
   </property>
   <widget class="QWidget" name="centralwidget">
-   <widget class="QLabel" name="data">
-    <property name="geometry">
-     <rect>
-      <x>40</x>
-      <y>40</y>
-      <width>55</width>
-      <height>16</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>Дата</string>
-    </property>
-   </widget>
-   <widget class="QLabel" name="time">
-    <property name="geometry">
-     <rect>
-      <x>40</x>
-      <y>80</y>
-      <width>55</width>
-      <height>16</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>Час</string>
-    </property>
-   </widget>
    <widget class="QLabel" name="label">
     <property name="geometry">
      <rect>
       <x>40</x>
-      <y>120</y>
+      <y>30</y>
       <width>55</width>
       <height>16</height>
      </rect>
     </property>
     <property name="text">
-     <string>Назва</string>
+     <string>Название</string>
     </property>
    </widget>
    <widget class="QLabel" name="label_2">
     <property name="geometry">
      <rect>
       <x>40</x>
-      <y>160</y>
+      <y>70</y>
       <width>81</width>
       <height>16</height>
      </rect>
     </property>
     <property name="text">
-     <string>Информація</string>
-    </property>
-   </widget>
-   <widget class="QDateEdit" name="inpdate">
-    <property name="geometry">
-     <rect>
-      <x>80</x>
-      <y>40</y>
-      <width>110</width>
-      <height>22</height>
-     </rect>
-    </property>
-    <property name="dateTime">
-     <datetime>
-      <hour>0</hour>
-      <minute>0</minute>
-      <second>0</second>
-      <year>2020</year>
-      <month>11</month>
-      <day>1</day>
-     </datetime>
-    </property>
-   </widget>
-   <widget class="QTimeEdit" name="inptime">
-    <property name="geometry">
-     <rect>
-      <x>80</x>
-      <y>80</y>
-      <width>118</width>
-      <height>22</height>
-     </rect>
+     <string>Информация</string>
     </property>
    </widget>
    <widget class="QLineEdit" name="inpname">
     <property name="geometry">
      <rect>
       <x>120</x>
-      <y>120</y>
+      <y>30</y>
       <width>181</width>
       <height>22</height>
      </rect>
@@ -110,7 +54,7 @@
     <property name="geometry">
      <rect>
       <x>320</x>
-      <y>120</y>
+      <y>30</y>
       <width>93</width>
       <height>28</height>
      </rect>
@@ -123,34 +67,63 @@
     <property name="geometry">
      <rect>
       <x>40</x>
-      <y>330</y>
-      <width>81</width>
-      <height>16</height>
+      <y>240</y>
+      <width>71</width>
+      <height>20</height>
      </rect>
     </property>
     <property name="text">
-     <string>Приоритет</string>
+     <string>Тип записи</string>
     </property>
    </widget>
-   <widget class="QSpinBox" name="inppriority">
+   <widget class="QTextEdit" name="inptext">
     <property name="geometry">
      <rect>
       <x>120</x>
-      <y>330</y>
-      <width>81</width>
+      <y>70</y>
+      <width>291</width>
+      <height>151</height>
+     </rect>
+    </property>
+   </widget>
+   <widget class="QComboBox" name="inptype">
+    <property name="geometry">
+     <rect>
+      <x>120</x>
+      <y>240</y>
+      <width>171</width>
       <height>22</height>
      </rect>
     </property>
-   </widget>
-   <widget class="QLineEdit" name="inptext">
-    <property name="geometry">
-     <rect>
-      <x>120</x>
-      <y>160</y>
-      <width>291</width>
-      <height>121</height>
-     </rect>
+    <property name="currentText">
+     <string>Выберете тип записи</string>
     </property>
+    <property name="insertPolicy">
+     <enum>QComboBox::InsertAtBottom</enum>
+    </property>
+    <property name="placeholderText">
+     <string>Выберете тип записи</string>
+    </property>
+    <item>
+     <property name="text">
+      <string>работа</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>учёба</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>мысли</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>планы</string>
+     </property>
+    </item>
    </widget>
   </widget>
   <widget class="QMenuBar" name="menubar">
@@ -158,7 +131,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>800</width>
+     <width>495</width>
      <height>26</height>
     </rect>
    </property>
