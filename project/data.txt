@@ -1,0 +1,209 @@
+What happens when you try to compile and run the code?
+-----
+#include <iostream> 
+ 
+using namespace std; 
+ 
+int preinc(int &x) { 
+    return ++x; 
+} 
+ 
+int postinc(int &x) { 
+    return x++; 
+} 
+ 
+int main(void) { 
+    int x = 5; 
+ 
+    cout << preinc(x); 
+    cout << postinc(x); 
+    cout << x; 
+ 
+    return 0; 
+} 
+------- 1
+the screen will display 667
+the screen will display 567
+the screen will display 677
+the screen will display 555
+-------------------------
+What will be displayed on the screen?
+-----
+#include  <iostream>  
+using namespace  std; 
+class  A 
+{ 
+public: 
+    virtual void  Foo(int  n = 10) 
+    { 
+        cout << "A::Foo, n = " << n << endl; 
+    } 
+}; 
+class  B : public  A{ 
+public: 
+    virtual void  Foo(int  n = 20) 
+    { 
+        cout << "B::Foo, n = " << n << endl; 
+    } 
+}; 
+ 
+int  main() 
+{ 
+    A * pa = new B(); 
+    pa->Foo(); 
+    return  0; 
+}
+------- 1
+B::Foo, n = 10
+A::Foo, n = 10
+B::Foo, n = 20
+A::Foo, n = 20
+-------------------------
+What will the program print?
+-----
+#include <stdio.h> 
+ 
+void ampersand( int n, int &k ); 
+ 
+int main() 
+{     
+    int n = 5; 
+    int k = 10; 
+     
+    ampersand( n, k ); 
+    printf( "n=%d &k=%d\n", n, k ); 
+ 
+    return 0; 
+} 
+ 
+void ampersand( int n, int &k ) 
+{ 
+    k -= 5; 
+    --n; 
+} 
+------- 2
+An error will occur during compilation
+n=5 &k=5
+n=4 &k=5
+n=5 &k=10
+-------------------------
+What will be displayed on the screen?
+-----
+#include <iostream> 
+#include <stdio.h> 
+ 
+class A 
+{ 
+    unsigned char a; 
+    public: 
+    A():a(0){} 
+    A& func() 
+    { 
+        ++a; 
+        return *this; 
+    } 
+    A& func(int) 
+    { 
+        --a; 
+        return *this; 
+    } 
+    unsigned char get_func() const 
+    { 
+        return a; 
+    } 
+}; 
+ 
+int main() 
+{ 
+    A object; 
+    object.func(1).func(1).func().func().func(1); 
+    std::cout << static_cast<int>(object.get_func()); 
+    return 0; 
+}
+------- 1
+255
+Compilation error
+-1
+1
+-------------------------
+What will be displayed on the screen?
+-----
+int main() 
+{ 
+     int *array = new int[10]; 
+     std::cout << sizeof(array) / sizeof(array[0]); 
+     delete[] array; 
+     return 0; 
+}
+------- 4
+execution error
+1
+10
+platform dependent
+-------------------------
+It is required in the function to allocate memory for the passed pointer. Which signature is appropriate for this task?
+-----
+void Init(int** ptr);   //1 
+void Init(int*  ptr);   //2 
+void Init(int*& ptr);   //3 
+void Init(int&* ptr);   //4
+------- 2
+1 2
+1 3
+1 2 3 4
+1 3 4
+-------------------------
+What will the following program output?
+-----
+#include <iostream> 
+ 
+using namespace std; 
+ 
+void f(int n, bool skip) { 
+    switch (n) { 
+       case 1: cout << 1; 
+ 
+       if (!skip) 
+       case 2: cout << 2; 
+ 
+       if (!skip) 
+       default: cout << n; 
+    } 
+} 
+ 
+int main() 
+{ 
+    f(1, true); 
+    f(2, false); 
+ 
+    return 0; 
+} 
+------- 2
+Compilation error occurs
+122
+12
+12122
+-------------------------
+What needs to be added to class A for the program to compile successfully?
+-----
+#include <iostream> 
+
+class A 
+{ 
+public: 
+    A(const int num):_num(num){} 
+private: 
+    int _num;  
+}; 
+ 
+int main(void) 
+{ 
+    A a; 
+    return 0; 
+}
+------- 1
+default constructor
+copy constructor
+class destructor
+nothing, because the default constructor is added to the class automatically
+-------------------------
