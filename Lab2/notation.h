@@ -9,6 +9,7 @@ private:
     QString _time;
     QString _name;
     QString _text;
+
     QString _type;
     bool _availability = 1;
 

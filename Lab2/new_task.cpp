@@ -49,6 +49,7 @@ void new_task::on_add_clicked()
              << notation.time()<<"\n"
              << notation.name()<<"\n"
              << notation.text()<<"\n"
+             << "-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-\n"
              << notation.type()<<"\n"
              << notation.availability()<<"\n\n";
 

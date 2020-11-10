@@ -81,6 +81,10 @@ MainWindow::MainWindow(QWidget *parent)
     keyCtrl_D = new QShortcut(this);
     keyCtrl_D->setKey(Qt::CTRL + Qt::Key_D);
     connect(keyCtrl_D, SIGNAL(activated()), this, SLOT(on_new_task_clicked()));
+
+
+    ui->tbwNotation_Notes->setEditTriggers(QAbstractItemView::NoEditTriggers);
+    ui->tbwNotation_Archive->setEditTriggers(QAbstractItemView::NoEditTriggers);
 }
 
 MainWindow::~MainWindow()
@@ -207,7 +211,15 @@ void MainWindow::moving_to_archive(size_t rows)
            current_notation.setName(line);
            break;
        case 3:
-           current_notation.setText(line); //нужно будет изменять line на что-то
+       {
+           QString str = in.readLine();
+           while(str != "-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-")
+           {
+               line.append(str);
+               str = in.readLine();
+           }
+           current_notation.setText(line);
+       }
            break;
        case 4:
            current_notation.setType(line);
@@ -228,7 +240,8 @@ void MainWindow::moving_to_archive(size_t rows)
            stream<< current_notation.name()<<"\n";
            break;
        case 3:
-           stream<< current_notation.text()<<"\n";
+           stream<< current_notation.text()<<"\n"
+           << "-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-\n";
            break;
        case 4:
            stream<< current_notation.type()<<"\n";
@@ -297,6 +310,7 @@ void MainWindow::load_from_file(int i)
     while (!in.atEnd())
     {
        QString line = in.readLine();
+       qDebug() << line;
        switch (current_field) {
        case 0:
            current_notation.setData(line);
@@ -308,7 +322,15 @@ void MainWindow::load_from_file(int i)
            current_notation.setName(line);
            break;
        case 3:
-           current_notation.setText(line); //нужно будет изменять line на что-то
+       {
+           QString str = in.readLine();
+           while(str != "-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-")
+           {
+               line.append(str);
+               str = in.readLine();
+           }
+           current_notation.setText(line);
+       }
            break;
        case 4:
            current_notation.setType(line);
