@@ -15,6 +15,7 @@ new_task::new_task(QWidget *parent, bool b) :
     ui(new Ui::new_task)
 {
     ui->setupUi(this);
+    setWindowTitle("New note");
 
     keyEnter = new QShortcut(this);
     keyEnter->setKey(Qt::Key_Return);

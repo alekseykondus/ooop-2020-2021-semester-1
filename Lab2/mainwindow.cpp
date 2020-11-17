@@ -16,7 +16,7 @@ MainWindow::MainWindow(QWidget *parent)
     ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
-
+    setWindowTitle("Notes");
     if (! RegisterHotKey(HWND(winId()), 0, MOD_ALT | MOD_CONTROL, 0x46))
         QMessageBox::warning(this, "Warning", "Can't register hotkey CTRL+D");
 
